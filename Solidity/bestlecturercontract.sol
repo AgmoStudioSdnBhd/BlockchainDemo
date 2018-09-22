@@ -1,4 +1,4 @@
-contract BestLecturerContract {
+contract BestLecturerVotingContract {
     struct Lecturer {
         string name;
         string phone;
@@ -11,6 +11,7 @@ contract BestLecturerContract {
     
     address owner;
     mapping(address => bool) votedAddresses;
+    address[] votedAddressList;
     LecturerChoice[] lecturerChoices;
     
     constructor() public {
@@ -28,6 +29,11 @@ contract BestLecturerContract {
     function addVote(uint _index) public newVoterOnly {
         lecturerChoices[_index].voteCount++;
         votedAddresses[msg.sender] = true;
+        votedAddressList.push(msg.sender);
+    }
+    
+    function getVotedList() public view returns (address[]){
+        return votedAddressList;
     }
     
     function getVoteCount(uint _index) public view returns (uint){

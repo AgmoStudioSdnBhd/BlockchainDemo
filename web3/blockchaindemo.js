@@ -1,6 +1,6 @@
 //Contract
-var address = "0xb1f6478bdfb61fc9eda6692e155e55c7a736708b";
-var abi = [{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_phone","type":"string"}],"name":"addLecturer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_index","type":"uint256"}],"name":"addVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"constant":true,"inputs":[{"name":"_index","type":"uint256"}],"name":"getLecturer","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_index","type":"uint256"}],"name":"getVoteCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}];
+var address = "0x72e0c967fb514c88522184bab5145163be74242d";
+var abi = [{"constant":false,"inputs":[{"name":"_index","type":"uint256"}],"name":"addVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"getVotedList","outputs":[{"name":"","type":"address[]"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_phone","type":"string"}],"name":"addLecturer","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_index","type":"uint256"}],"name":"getVoteCount","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_index","type":"uint256"}],"name":"getLecturer","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"}];
 
 //Account
 var account = "0x8409cE7e1DB1165E96cEAe80876BB93a666DEb3F";
@@ -40,6 +40,11 @@ function addVote(){
 	sendTx(data, function(err, transactionHash){
 		document.getElementById("addVoteTxHash").innerHTML = transactionHash;
 	});
+}
+
+function getVotedAddress() {
+	var data = web3.eth.contract(abi).at(address).getVotedList.call();
+	document.getElementById("votedAddress").innerHTML = JSON.stringify(data);
 }
 
 //Send Data to Blockchain With Private Key
